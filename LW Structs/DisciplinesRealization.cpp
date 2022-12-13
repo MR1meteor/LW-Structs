@@ -2,8 +2,15 @@
 
 void AddDiscipline(Disciplines* list, string name)
 {
-	DisciplineElement* newElement = new DisciplineElement{ nullptr, name };
+	try
+	{
+		DisciplineElement* discipline = GetDiscipline(list, name);
+		cout << "Discipline already exists" << endl;
+		return;
+	}
+	catch (const char* msg) { }
 
+	DisciplineElement* newElement = new DisciplineElement{ nullptr, name };
 
 	if (list->Length == 0)
 	{
@@ -15,6 +22,60 @@ void AddDiscipline(Disciplines* list, string name)
 
 	list->Tail->Next = newElement;
 	list->Tail = newElement;
+	list->Length++;
+}
+
+void InsertDiscipline(Disciplines* list, int index, string name)
+{
+	if (list->Length < index)
+		throw "Out of length";
+
+	if (index < 0)
+		throw "Wrong index";
+
+	try
+	{
+		DisciplineElement* discipline = GetDiscipline(list, name);
+		cout << "Discipline already exists" << endl;
+		return;
+	}
+	catch (const char* msg) { }
+
+	if (list->Length == index)
+	{
+		try
+		{
+			AddDiscipline(list, name);
+			return;
+		}
+		catch (const char* msg)
+		{
+			throw msg;
+		}
+		
+	}
+
+	DisciplineElement* newElement = new DisciplineElement{ nullptr, name };
+
+	DisciplineElement* previousElement = nullptr;
+	DisciplineElement* currentElement = list->Head;
+	
+	if (index == 0)
+	{
+		list->Head = newElement;
+		newElement->Next = currentElement;
+		list->Length++;
+		return;
+	}
+
+	for (int i = 0; i < index; i++)
+	{
+		previousElement = currentElement;
+		currentElement = currentElement->Next;
+	}
+
+	previousElement->Next = newElement;
+	newElement->Next = currentElement;
 	list->Length++;
 }
 
@@ -58,7 +119,7 @@ void DeleteDiscipline(Disciplines* list, int index)
 	delete(currentElement);
 }
 
-void GetDiscipline(DisciplineElement* destination, Disciplines* list, int index)
+DisciplineElement* GetDiscipline(Disciplines* list, int index)
 {
 	if (list->Length <= index)
 		throw "Out of length";
@@ -71,10 +132,10 @@ void GetDiscipline(DisciplineElement* destination, Disciplines* list, int index)
 	for (int i = 0; i < index; i++)
 		currentElement = currentElement->Next;
 
-	*destination = *currentElement;
+	return currentElement;
 }
 
-void GetDiscipline(DisciplineElement* destination, Disciplines* list, string name)
+DisciplineElement* GetDiscipline(Disciplines* list, string name)
 {
 	bool success = false;
 	DisciplineElement* currentElement = list->Head;
@@ -91,9 +152,33 @@ void GetDiscipline(DisciplineElement* destination, Disciplines* list, string nam
 	}
 
 	if (success)
-		*destination = *currentElement;
+		return currentElement;
 	else
 		throw "Wrong discipline name";
+}
+
+void DeleteDisciplinesList(Disciplines* list)
+{
+	if (list->Length == 0)
+	{
+		delete list;
+		list = nullptr;
+		return;
+	}
+
+	DisciplineElement* elementToDelete = nullptr;
+	DisciplineElement* currentElement = list->Head;
+
+	for (int i = 0; i < list->Length; i++)
+	{
+		elementToDelete = currentElement;
+		currentElement = currentElement->Next;
+
+		delete elementToDelete;
+	}
+
+	delete list;
+	list = nullptr;
 }
 
 ostream& operator << (ostream& os, const Disciplines* list)

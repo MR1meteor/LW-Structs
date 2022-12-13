@@ -10,10 +10,14 @@ struct Disciplines
 
 void AddDiscipline(Disciplines* list, string name);
 
+void InsertDiscipline(Disciplines* list, int index, string name);
+
 void DeleteDiscipline(Disciplines* list, int index);
 
-void GetDiscipline(DisciplineElement* destination, Disciplines* list, int index);
+DisciplineElement* GetDiscipline(Disciplines* list, int index);
 
-void GetDiscipline(DisciplineElement* destination, Disciplines* list, string name);
+DisciplineElement* GetDiscipline(Disciplines* list, string name);
+
+void DeleteDisciplinesList(Disciplines* list);
 
 ostream& operator << (ostream& os, const Disciplines* list);

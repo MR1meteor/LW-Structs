@@ -130,6 +130,7 @@
     <ClCompile Include="DisciplineElementRealization.cpp" />
     <ClCompile Include="DisciplinesRealization.cpp" />
     <ClCompile Include="LW Structs.cpp" />
+    <ClCompile Include="StudentElementRealization.cpp" />
     <ClCompile Include="StudentsRealization.cpp" />
   </ItemGroup>
   <ItemGroup>

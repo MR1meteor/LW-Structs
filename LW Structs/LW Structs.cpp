@@ -8,11 +8,18 @@ int main()
 
     AddDiscipline(disciplinesList, "First");
     AddDiscipline(disciplinesList, "Second");
+    try
+    {
+        InsertDiscipline(disciplinesList, 1, "Tirst");
+    }
+    catch (const char* msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
 
     try
     {
-        DisciplineElement* el = new DisciplineElement();
-        GetDiscipline(el, disciplinesList, 2);
+        DisciplineElement* el = GetDiscipline(disciplinesList, 2);
         cout << el;
     }
     catch (const char* msg)
@@ -23,22 +30,71 @@ int main()
     cout << disciplinesList << endl;
 
 
+
     Students* studentsList = new Students();
 
-    AddStudent(studentsList, disciplinesList, "just fio1", "Second");
-    AddStudent(studentsList, disciplinesList, "just fio2", "test disc2");
-    AddStudent(studentsList, disciplinesList, "just fio3", "test disc3");
-
-    try 
+    try
     {
-        DeleteStudent(studentsList, -1);
+        AddStudent(studentsList, disciplinesList, "just fio1", "Second");
     }
-    catch (const char* msg) 
+    catch (const char* msg)
     {
         cout << "Exception: " << msg << endl;
     }
-    
+
+
+    try
+    {
+        InsertStudent(studentsList, disciplinesList, 1, "just fio15", "Second");
+    }
+    catch (const char* msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
+
+    try
+    {
+        AddStudent(studentsList, disciplinesList, "just fio2", "test disc2");
+    }
+    catch (const char* msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
+
+
+    try
+    {
+        AddStudent(studentsList, disciplinesList, "just fio3", "Second");
+    }
+    catch (const char* msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
+
+
+    try
+    {
+        DeleteStudent(studentsList, -1);
+    }
+    catch (const char* msg)
+    {
+        cout << "Exception: " << msg << endl;
+    }
+
+
     cout << studentsList << endl;
 
-    
+
+    try
+    {
+        StudentElement* el = GetStudent(studentsList, 2);
+        cout << el;
+    }
+    catch (const std::exception&)
+    {
+
+    }
+
+    DeleteStudentsList(studentsList);
+    DeleteDisciplinesList(disciplinesList);
 }

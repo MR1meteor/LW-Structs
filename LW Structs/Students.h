@@ -13,8 +13,14 @@ struct Students
 
 void AddStudent(Students* list, Disciplines* disciplinesList, string fio, string discipline);
 
-void InsertStudent(Students* list, int index, string fio, string discipline = "");
+void InsertStudent(Students* list, Disciplines* disciplinesList, int index, string fio, string discipline);
 
 void DeleteStudent(Students* list, int index);
+
+StudentElement* GetStudent(Students* list, int index);
+
+Students* GetStudents(Students* list, Disciplines* disciplinesList, string discipline);
+
+void DeleteStudentsList(Students* list);
 
 ostream& operator << (ostream& os, const Students* list);

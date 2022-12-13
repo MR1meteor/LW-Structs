@@ -10,3 +10,5 @@ struct StudentElement
 	string FIO = "";
 	string Discipline = "";
 };
+
+ostream& operator << (ostream& os, const StudentElement* element);
